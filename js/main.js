@@ -34,25 +34,25 @@ var generateComment = function () {
   var comment = {
     name: generateUserName(),
     text: generateCommentText(),
-    avatar: 'img/avatar-' + (1 + Math.round(Math.random()*5)) + '.jpg'
-  }
+    avatar: 'img/avatar-' + (1 + Math.round(Math.random() * 5)) + '.jpg'
+  };
   return comment;
 };
 
 var generatePhotoUrl = function () {
-  return 'photos/' + (1 + Math.round(Math.random()*24)) + '.jpg';
+  return 'photos/' + (1 + Math.round(Math.random() * 24)) + '.jpg';
 };
 
 var generateElements = function () {
   var arrayOfElements = [];
   for (var i = 0; i < 25; i++) {
-     arrayOfElements[i] = {
+    arrayOfElements[i] = {
       url: generatePhotoUrl(),
-      likes: 15 + Math.round(Math.random()*185),
+      likes: 15 + Math.round(Math.random() * 185),
       comments: [generateComment(), generateComment()]
-     }
- }
- return arrayOfElements;
+    };
+  }
+  return arrayOfElements;
 };
 
 var photosArray = generateElements();
