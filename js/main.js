@@ -14,20 +14,16 @@ var commentsSource = ['Всё отлично!',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 var photoTemplate = document.querySelector('#picture').content.querySelector('a');
 
+var randMinMax = function (min, max) {
+  return Math.round(min + Math.random() * (max - min));
+};
+
 var generateUserName = function () {
-  if (Math.random() >= 0.5) {
-    return userMaleNames[Math.round(Math.random() * (userMaleNames.length - 1))];
-  } else {
-    return userFemaleNames[Math.round(Math.random() * (userFemaleNames.length - 1))];
-  }
+  return (Math.random() >= 0.5) ? userMaleNames[randMinMax(0, userMaleNames.length - 1)] : userFemaleNames[randMinMax(0, userFemaleNames.length - 1)];
 };
 
 var generateCommentText = function () {
-  if (Math.random() >= 0.5) {
-    return commentsSource[Math.round(Math.random() * (commentsSource.length - 1))];
-  } else {
-    return commentsSource[Math.round(Math.random() * (commentsSource.length - 1))] + ' ' + commentsSource[Math.round(Math.random() * (commentsSource.length - 1))];
-  }
+  return (Math.random() >= 0.5) ? commentsSource[randMinMax(0, commentsSource.length - 1)] : commentsSource[randMinMax(0, commentsSource.length - 1)] + ' ' + commentsSource[randMinMax(0, commentsSource.length - 1)]
 };
 
 var generateComment = function () {
