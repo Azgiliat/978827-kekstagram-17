@@ -30,13 +30,13 @@ var generateComment = function () {
   var comment = {
     name: generateUserName(),
     text: generateCommentText(),
-    avatar: 'img/avatar-' + (1 + Math.round(Math.random() * 5)) + '.jpg'
+    avatar: 'img/avatar-' + (randMinMax(1, 6)) + '.jpg'
   };
   return comment;
 };
 
 var generatePhotoUrl = function () {
-  return 'photos/' + (1 + Math.round(Math.random() * 24)) + '.jpg';
+  return 'photos/' + (randMinMax(1, 25)) + '.jpg';
 };
 
 var generateElements = function () {
@@ -44,7 +44,7 @@ var generateElements = function () {
   for (var i = 0; i < 25; i++) {
     arrayOfElements[i] = {
       url: generatePhotoUrl(),
-      likes: 15 + Math.round(Math.random() * 185),
+      likes: randMinMax(15, 200),
       comments: [generateComment(), generateComment()]
     };
   }
