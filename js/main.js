@@ -23,7 +23,7 @@ var generateUserName = function () {
 };
 
 var generateCommentText = function () {
-  return (Math.random() >= 0.5) ? commentsSource[randMinMax(0, commentsSource.length - 1)] : commentsSource[randMinMax(0, commentsSource.length - 1)] + ' ' + commentsSource[randMinMax(0, commentsSource.length - 1)]
+  return (Math.random() >= 0.5) ? commentsSource[randMinMax(0, commentsSource.length - 1)] : commentsSource[randMinMax(0, commentsSource.length - 1)] + ' ' + commentsSource[randMinMax(0, commentsSource.length - 1)];
 };
 
 var generateComment = function () {
