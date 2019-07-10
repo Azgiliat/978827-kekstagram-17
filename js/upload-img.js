@@ -1,11 +1,12 @@
+'use strict';
+
 var fileImgInput = document.querySelector('.img-upload__form input[type=file]');
 var imgUpload = document.querySelector('.img-upload__overlay');
 var imgPreview = imgUpload.querySelector('.img-upload__preview img');
 
-var removeFilters = function(photo) {
+var removeFilters = function (photo) {
   if (photo.classList.contains('effects__preview--none')) {
     photo.classList.remove('effects__preview--none');
-    console.log('delete chrome');
   }
   if (photo.classList.contains('effects__preview--chrome')) {
     photo.classList.remove('effects__preview--chrome');
@@ -24,14 +25,13 @@ var removeFilters = function(photo) {
   }
 };
 
-var addFilter = function(photo, filter) {
+var addFilter = function (photo, filter) {
   if (filter.classList.contains('effects__preview--none')) {
     photo.classList.add('effects__preview--none');
   }
   if (filter.classList.contains('effects__preview--chrome')) {
     photo.classList.add('effects__preview--chrome1');
     photo.classList.add('effects__preview--chrome');
-    console.log('add chrome');
   }
   if (filter.classList.contains('effects__preview--sepia')) {
     photo.classList.add('effects__preview--sepia');
@@ -47,7 +47,7 @@ var addFilter = function(photo, filter) {
   }
 };
 
-fileImgInput.addEventListener('change', function() {
+fileImgInput.addEventListener('change', function () {
   var effectItems = imgUpload.querySelectorAll('.effects__item .effects__preview');
   var photoURL = window.URL.createObjectURL(this.files[0]);
 
@@ -58,7 +58,7 @@ fileImgInput.addEventListener('change', function() {
     effectItems[i].style = 'background-image: url(' + photoURL + ')';
   }
   var effectsList = imgUpload.querySelector('.effects__list');
-  effectsList.addEventListener('click', function(evt){
+  effectsList.addEventListener('click', function (evt) {
     removeFilters(imgPreview);
     addFilter(imgPreview, evt.target);
     evt.stopPropagation();
