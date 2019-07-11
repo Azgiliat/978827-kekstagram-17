@@ -4,7 +4,7 @@ var fileImgInput = document.querySelector('.img-upload__form input[type=file]');
 var imgUpload = document.querySelector('.img-upload__overlay');
 var imgPreview = imgUpload.querySelector('.img-upload__preview img');
 
-var removeFilters = function (photo) {
+var removeFilters = function(photo) {
   if (photo.classList.contains('effects__preview--none')) {
     photo.classList.remove('effects__preview--none');
   }
@@ -25,7 +25,7 @@ var removeFilters = function (photo) {
   }
 };
 
-var addFilter = function (photo, filter) {
+var addFilter = function(photo, filter) {
   if (filter.classList.contains('effects__preview--none')) {
     photo.classList.add('effects__preview--none');
   }
@@ -47,20 +47,22 @@ var addFilter = function (photo, filter) {
   }
 };
 
-fileImgInput.addEventListener('change', function () {
+fileImgInput.addEventListener('change', function() {
   var effectItems = imgUpload.querySelectorAll('.effects__item .effects__preview');
   var photoURL = window.URL.createObjectURL(this.files[0]);
-
+  var effectsList = document.querySelector('.effects__list');
   imgUpload.classList.remove('hidden');
   imgPreview.src = photoURL;
 
   for (var i = 0; i < effectItems.length; i++) {
     effectItems[i].style = 'background-image: url(' + photoURL + ')';
   }
-  var effectsList = imgUpload.querySelector('.effects__list');
-  effectsList.addEventListener('click', function (evt) {
+
+  effectsList.addEventListener('click', function(evt) {
     removeFilters(imgPreview);
     addFilter(imgPreview, evt.target);
-    evt.stopPropagation();
+    console.log('evt target', evt.target);
+    console.log('evt currentTarget', evt.currentTarget);
+    evt.preventDefault();
   }, false);
 });
