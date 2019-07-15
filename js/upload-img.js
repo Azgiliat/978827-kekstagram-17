@@ -52,6 +52,11 @@ var canBeBigger = function(scale) {
 var canBeSmaller = function(scale) {
   return scale === '25%' ? 0 : 1;
 };
+var effectLevelCalculate = function (levelPin, levelLine) {
+  var pinCoords = levelPin.getBoundingClientRect();
+  var lineCoords = levelLine.getBoundingClientRect();
+  return (pinCoords.left + (pinCoords.right - pinCoords.left) / 2  - lineCoords.left) / levelLine.offsetWidth * 100;
+};
 
 fileImgInput.addEventListener('change', function() {
   var effectItems = imgUpload.querySelectorAll('.effects__item .effects__preview');
@@ -60,6 +65,9 @@ fileImgInput.addEventListener('change', function() {
   var scaleValue = imgUpload.querySelector('.scale__control--value');
   var scaleControlBig = imgUpload.querySelector('.scale__control--bigger');
   var scaleControlSmall = imgUpload.querySelector('.scale__control--smaller');
+  var effectLevelPin = imgUpload.querySelector('.effect-level__pin');
+  var effectLevelLine = imgUpload.querySelector('.effect-level__line');
+
   imgUpload.classList.remove('hidden');
   imgPreview.src = photoURL;
 
@@ -86,4 +94,5 @@ fileImgInput.addEventListener('change', function() {
       scaleValue.value = (parseInt(scaleValue.value, 10) - 25) + '%';
     }
   });
+
 });
