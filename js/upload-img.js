@@ -52,10 +52,10 @@ var canBeBigger = function(scale) {
 var canBeSmaller = function(scale) {
   return scale === '25%' ? 0 : 1;
 };
-var effectLevelCalculate = function (levelPin, levelLine) {
+var effectLevelCalculate = function(levelPin, levelLine) {
   var pinCoords = levelPin.getBoundingClientRect();
   var lineCoords = levelLine.getBoundingClientRect();
-  return (pinCoords.left + (pinCoords.right - pinCoords.left) / 2  - lineCoords.left) / levelLine.offsetWidth * 100;
+  return (pinCoords.left + (pinCoords.right - pinCoords.left) / 2 - lineCoords.left) / levelLine.offsetWidth * 100;
 };
 
 fileImgInput.addEventListener('change', function() {
@@ -84,15 +84,20 @@ fileImgInput.addEventListener('change', function() {
   scaleValue.value = DEFAULT_SCALE;
   scaleControlBig.addEventListener('click', function() {
     if (canBeBigger(scaleValue.value)) {
-      imgPreview.style.transform = 'scale(' + (parseInt(scaleValue.value, 10) + 25)/100 + ')';
+      imgPreview.style.transform = 'scale(' + (parseInt(scaleValue.value, 10) + 25) / 100 + ')';
       scaleValue.value = (parseInt(scaleValue.value, 10) + 25) + '%';
     }
   });
   scaleControlSmall.addEventListener('click', function() {
     if (canBeSmaller(scaleValue.value)) {
-      imgPreview.style.transform = 'scale(' + (parseInt(scaleValue.value, 10) - 25)/100 + ')';
+      imgPreview.style.transform = 'scale(' + (parseInt(scaleValue.value, 10) - 25) / 100 + ')';
       scaleValue.value = (parseInt(scaleValue.value, 10) - 25) + '%';
     }
   });
-
+  effectLevelPin.addEventListener('mousedown', function(evt) {
+    effectLevelPin.addEventListener('mousemove', function(evt) {
+      var startCoords = effectLevelPin.clientX;
+      effectLevelPin.style.left = startCoords + evt.offsetX;
+    });
+  });
 });
