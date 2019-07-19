@@ -24,27 +24,62 @@
       document.removeEventListener('mousemove', onMouseMove);
     };
     var onMouseMove = function (evt) {
+      var effectLevelSet = function (inRange) {
+        var configs = {
+          maxConfigs: {
+            left: '100%',
+            width: '100%',
+            value: 100,
+            startCoords: coordsLimits.maxX
+          },
+          minConfigs: {
+            left: '0%',
+            width: '0%',
+            value: 0,
+            startCoords: coordsLimits.minX
+          },
+          inRangeConfigs: {
+            left: effectLevelCalculate(effectLevelPin, effectLevelLine, shift) + '%',
+            width: effectLevelCalculate(effectLevelPin, effectLevelLine, shift) + '%',
+            value: effectLevelCalculate(effectLevelPin, effectLevelLine, shift),
+            startCoords: evt.clientX
+          }
+        };
+
+        switch (inRange) {
+          case 0:
+            effectLevelPin.style.left = configs.inRangeConfigs.left;
+            effectLevelDepth.style.width = configs.inRangeConfigs.width;
+            effectLevelValue.value = configs.inRangeConfigs.value;
+            startCoords = configs.inRangeConfigs.startCoords;
+            effectLevelValue.dispatchEvent(onFilterLvlChange);
+            return;
+          case 1:
+            effectLevelPin.style.left = configs.maxConfigs.left;
+            effectLevelDepth.style.width = configs.maxConfigs.width;
+            effectLevelValue.value = configs.maxConfigs.value;
+            startCoords = configs.maxConfigs.startCoords;
+            effectLevelValue.dispatchEvent(onFilterLvlChange);
+            return;
+          case -1:
+            effectLevelPin.style.left = configs.minConfigs.left;
+            effectLevelDepth.style.width = configs.minConfigs.width;
+            effectLevelValue.value = configs.minConfigs.value;
+            startCoords = configs.minConfigs.startCoords;
+            effectLevelValue.dispatchEvent(onFilterLvlChange);
+            return;
+        };
+      };
+
       var shift = startCoords - evt.clientX;
       startCoords = evt.clientX;
       if (effectLevelCalculate(effectLevelPin, effectLevelLine, shift) > 100) {
-        effectLevelPin.style.left = '100%';
-        effectLevelDepth.style.width = '100%';
-        effectLevelValue.value = 100;
-        startCoords = coordsLimits.maxX;
-        effectLevelValue.dispatchEvent(onFilterLvlChange);
+        effectLevelSet(1);
       }
       if (effectLevelCalculate(effectLevelPin, effectLevelLine, shift) < 0) {
-        effectLevelPin.style.left = '0%';
-        effectLevelDepth.style.width = '0%';
-        effectLevelValue.value = 0;
-        startCoords = coordsLimits.minX;
-        effectLevelValue.dispatchEvent(onFilterLvlChange);
+        effectLevelSet(-1);
       } else {
-        effectLevelPin.style.left = effectLevelCalculate(effectLevelPin, effectLevelLine, shift) + '%';
-        effectLevelDepth.style.width = effectLevelCalculate(effectLevelPin, effectLevelLine, shift) + '%';
-        effectLevelValue.value = effectLevelCalculate(effectLevelPin, effectLevelLine, shift);
-        startCoords = evt.clientX;
-        effectLevelValue.dispatchEvent(onFilterLvlChange);
+        effectLevelSet(0);
       }
     };
     var startCoords = e.clientX;
