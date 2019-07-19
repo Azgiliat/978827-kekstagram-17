@@ -68,7 +68,7 @@
             startCoords = configs.minConfigs.startCoords;
             effectLevelValue.dispatchEvent(onFilterLvlChange);
             return;
-        };
+        }
       };
 
       var shift = startCoords - evt.clientX;
