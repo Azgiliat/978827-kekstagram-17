@@ -1,14 +1,13 @@
 'use strict';
 
-(function() {
+(function () {
   var imgUpload = document.querySelector('.img-upload__overlay');
-  var effectItems = imgUpload.querySelectorAll('.effects__item .effects__preview');
   var effectLevelPin = imgUpload.querySelector('.effect-level__pin');
   var effectLevelLine = imgUpload.querySelector('.effect-level__line');
   var effectLevelDepth = imgUpload.querySelector('.effect-level__depth');
   var effectLevelValue = imgUpload.querySelector('.effect-level__value');
 
-  var effectLevelCalculate = function(levelPin, levelLine, shift) {
+  var effectLevelCalculate = function (levelPin, levelLine, shift) {
     var pinCoords = levelPin.getBoundingClientRect();
     var lineCoords = levelLine.getBoundingClientRect();
     return Math.round(((pinCoords.left + (pinCoords.right - pinCoords.left) / 2) - shift - lineCoords.left) / levelLine.offsetWidth * 100);
@@ -19,12 +18,12 @@
     maxX: effectLevelLine.getBoundingClientRect().left + effectLevelLine.offsetWidth,
     minX: effectLevelLine.getBoundingClientRect().left
   };
-  effectLevelPin.addEventListener('mousedown', function(evt) {
-    var onMouseUp = function(evt) {
+  effectLevelPin.addEventListener('mousedown', function (e) {
+    var onMouseUp = function () {
       document.removeEventListener('mouseup', onMouseUp);
       document.removeEventListener('mousemove', onMouseMove);
     };
-    var onMouseMove = function(evt) {
+    var onMouseMove = function (evt) {
       var shift = startCoords - evt.clientX;
       startCoords = evt.clientX;
       if (effectLevelCalculate(effectLevelPin, effectLevelLine, shift) > 100) {
@@ -48,7 +47,7 @@
         effectLevelValue.dispatchEvent(onFilterLvlChange);
       }
     };
-    var startCoords = evt.clientX;
+    var startCoords = e.clientX;
     var filterLvlChangeConfig = {
       bubbles: true,
       cancelable: false
