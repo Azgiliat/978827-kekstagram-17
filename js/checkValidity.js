@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.initFormValidity = (function () {
   var hashtagInput = document.querySelector('.text__hashtags');
   var imgForm = document.querySelector('.img-upload__form');
   var comment = document.querySelector('.text__description');
@@ -16,11 +16,10 @@
       }
       if (hashtags.length > 5) {
         this.valid = false;
-        this.errorsText.push('Вы ввели' + this.hashtags.length + 'хэштегов. Их должно быть не больше 5.\n');
+        this.errorsText.push('Вы ввели ' + hashtags.length + ' хэштегов. Их должно быть не больше 5.\n');
       }
       hashtags.forEach(function (item, i, array) {
         var tmpItem = item;
-        console.log(this.valid);
         if (item === '#') {
           this.valid = false;
           this.errorsText.push('Хэштег не может состоять из одной #.\n');
@@ -50,33 +49,33 @@
       }
     }
   };
+  var validityToDefault = function (item) {
+    item.valid = true;
+    item.errorsText = [];
+    hashtagInput.setCustomValidity('');
+    comment.setCustomValidity('');
+  };
 
   hashtagInput.addEventListener('input', function () {
     hashtagsProps.text = hashtagInput.value;
-    hashtagsProps.valid = true;
-    hashtagsProps.errorsText = [];
+    validityToDefault(hashtagsProps);
   });
 
   comment.addEventListener('input', function () {
     commentProps.text = comment.value;
-    commentProps.valid = true;
-    commentProps.errorsText = [];
+    validityToDefault(commentProps);
   });
 
   submitButton.addEventListener('click', function () {
-    var customSubmit = {
+    var customSubmitConfig = {
       bubbles: true,
       cancelable: true
     };
-    var cSubmit = new Event('Csubmit', customSubmit);
+    var cSubmit = new Event('customSubmit', customSubmitConfig);
     imgForm.dispatchEvent(cSubmit);
   });
 
-  imgForm.addEventListener('Csubmit', function (evt) {
-
-
-    evt.preventDefault();
-
+  imgForm.addEventListener('customSubmit', function (evt) {
     hashtagsProps.hashtagsValidity();
     commentProps.commentValidity();
     if (commentProps.valid && hashtagsProps.valid) {
@@ -87,8 +86,5 @@
       hashtagInput.setCustomValidity(hashtagsProps.errorsText);
       comment.setCustomValidity(commentProps.errorsText);
     }
-
-
-
   });
-})();
+});
