@@ -1,6 +1,6 @@
 'use strict';
 
-window.initFormValidity = (function () {
+window.initFormValidity = function () {
   var hashtagInput = document.querySelector('.text__hashtags');
   var imgForm = document.querySelector('.img-upload__form');
   var comment = document.querySelector('.text__description');
@@ -86,4 +86,4 @@ window.initFormValidity = (function () {
       comment.setCustomValidity(commentProps.errorsText);
     }
   });
-});
+};
