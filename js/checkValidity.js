@@ -11,20 +11,19 @@ window.initFormValidity = (function () {
     valid: true,
     hashtagsValidity: function () {
       var hashtags = this.text.split(' ');
-      if (this.text == '') {
+      if (this.text === '') {
         return;
       }
       if (hashtags.length > 5) {
         this.valid = false;
         this.errorsText.push('Вы ввели ' + hashtags.length + ' хэштегов. Их должно быть не больше 5.\n');
       }
-      hashtags.forEach(function (item, i, array) {
-        var tmpItem = item;
+      hashtags.forEach(function (item) {
         if (item === '#') {
           this.valid = false;
           this.errorsText.push('Хэштег не может состоять из одной #.\n');
         }
-        if (item.charAt(0) != '#') {
+        if (item.charAt(0) !== '#') {
           this.valid = false;
           this.errorsText.push('Хэштеги должны начинаться с #.\n');
         }
@@ -40,11 +39,11 @@ window.initFormValidity = (function () {
     errorsText: [],
     valid: true,
     commentValidity: function () {
-      if (this.text == '') {
+      if (this.text === '') {
         return;
       }
       if (this.text.length > 140) {
-        this.errorsText.push('Комментарий слишком длинынй, должно быть не более 140 символов.')
+        this.errorsText.push('Комментарий слишком длинынй, должно быть не более 140 символов.');
         this.valid = false;
       }
     }
@@ -75,7 +74,7 @@ window.initFormValidity = (function () {
     imgForm.dispatchEvent(cSubmit);
   });
 
-  imgForm.addEventListener('customSubmit', function (evt) {
+  imgForm.addEventListener('customSubmit', function () {
     hashtagsProps.hashtagsValidity();
     commentProps.commentValidity();
     if (commentProps.valid && hashtagsProps.valid) {
