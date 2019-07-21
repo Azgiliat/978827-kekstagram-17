@@ -132,7 +132,7 @@
     };
 
     imgUpload.classList.remove('hidden');
-    window.initFormValidity();
+    initFormValidity();
     imgPreview.src = photoURL;
     for (var i = 0; i < effectItems.length; i++) {
       effectItems[i].style.backgroundImage = 'url(' + photoURL + ')';
