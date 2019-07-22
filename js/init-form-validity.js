@@ -5,7 +5,7 @@
     var hashtagInput = document.querySelector('.text__hashtags');
     var imgForm = document.querySelector('.img-upload__form');
     var comment = document.querySelector('.text__description');
-    var submitButton = document.querySelector('.img-upload__submit');
+    //var submitButton = document.querySelector('.img-upload__submit');
     var hashtagsProps = {
       text: hashtagInput.value,
       errorsText: [],
