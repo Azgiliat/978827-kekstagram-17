@@ -8,18 +8,26 @@
     //  var submitButton = document.querySelector('.img-upload__submit');
     var hashtagsProps = {
       text: hashtagInput.value,
+      lowCaseText: [],
       errorsText: [],
       valid: true,
-      hashtagsValidity: function () {
+      toLowCase: function () {
         var hashtags = this.text.split(' ');
+        hashtags.forEach(function (item) {
+          this.lowCaseText.push(item.toLowerCase());
+        }, this);
+      },
+      hashtagsValidity: function () {
+        var doubleTags = false;
+        this.toLowCase();
         if (this.text === '') {
           return;
         }
-        if (hashtags.length > 5) {
+        if (this.lowCaseText.length > 5) {
           this.valid = false;
-          this.errorsText.push('Вы ввели ' + hashtags.length + ' хэштегов. Их должно быть не больше 5.\n');
+          this.errorsText.push('Вы ввели ' + this.lowCaseText.length + ' хэштегов. Их должно быть не больше 5.\n');
         }
-        hashtags.forEach(function (item) {
+        this.lowCaseText.forEach(function (item, i, array) {
           if (item === '#') {
             this.valid = false;
             this.errorsText.push('Хэштег не может состоять из одной #.\n');
@@ -31,6 +39,14 @@
           if (item.length > 20) {
             this.valid = false;
             this.errorsText.push('Максимальная длина одного хэштега 20 символов.\n');
+          }
+          var nextItem = i + 1;
+          for (nextItem; nextItem < array.length; nextItem++) {
+            if ((item === array[i + 1]) && !doubleTags) {
+              doubleTags = true;
+              this.valid = false;
+              this.errorsText.push('Не должно быть одинаковых хэштегов\n');
+            }
           }
         }, this);
       }
@@ -52,6 +68,7 @@
     var validityToDefault = function (item) {
       item.valid = true;
       item.errorsText = [];
+      hashtagInput.lowCaseText = [];
       hashtagInput.setCustomValidity('');
       comment.setCustomValidity('');
     };
