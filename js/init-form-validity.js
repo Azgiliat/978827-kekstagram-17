@@ -65,17 +65,20 @@
       commentProps.text = comment.value;
       validityToDefault(commentProps);
     });
-
-    submitButton.addEventListener('click', function () {
-      var customSubmitConfig = {
-        bubbles: true,
-        cancelable: true
-      };
-      var cSubmit = new Event('customSubmit', customSubmitConfig);
-      imgForm.dispatchEvent(cSubmit);
-    });
-
-    imgForm.addEventListener('customSubmit', function () {
+    /*  на домашнем ПК почему-то событие submit не отлавливается при повторной попытке
+    отправки формы. Поэтому был придуман такой вот костыль. На рабочем ПК всё отлавилвается.
+    Буду разбираться.
+        submitButton.addEventListener('click', function () {
+          var customSubmitConfig = {
+            bubbles: true,
+            cancelable: true
+          };
+          var cSubmit = new Event('customSubmit', customSubmitConfig);
+          imgForm.dispatchEvent(cSubmit);
+        });
+    */
+    imgForm.addEventListener('submit', function (evt) {
+      evt.preventDefault();
       hashtagsProps.hashtagsValidity();
       commentProps.commentValidity();
       if (commentProps.valid && hashtagsProps.valid) {
