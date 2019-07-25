@@ -68,7 +68,7 @@
     var validityToDefault = function (item) {
       item.valid = true;
       item.errorsText = [];
-      hashtagInput.lowCaseText = [];
+      hashtagsProps.lowCaseText = [];
       hashtagInput.setCustomValidity('');
       comment.setCustomValidity('');
     };
