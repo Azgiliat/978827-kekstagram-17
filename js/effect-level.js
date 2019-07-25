@@ -13,7 +13,6 @@
     return Math.round(((pinCoords.left + (pinCoords.right - pinCoords.left) / 2) - shift - lineCoords.left) / levelLine.offsetWidth * 100);
   };
 
-
   var coordsLimits = {
     maxX: effectLevelLine.getBoundingClientRect().left + effectLevelLine.offsetWidth,
     minX: effectLevelLine.getBoundingClientRect().left
@@ -46,27 +45,23 @@
           }
         };
 
+        var isInRange = function (i) {
+          effectLevelPin.style.left = i.left;
+          effectLevelDepth.style.width = i.width;
+          effectLevelValue.value = i.value;
+          startCoords = i.startCoords;
+          effectLevelValue.dispatchEvent(onFilterLvlChange);
+        };
+
         switch (inRange) {
           case 0:
-            effectLevelPin.style.left = configs.inRangeConfigs.left;
-            effectLevelDepth.style.width = configs.inRangeConfigs.width;
-            effectLevelValue.value = configs.inRangeConfigs.value;
-            startCoords = configs.inRangeConfigs.startCoords;
-            effectLevelValue.dispatchEvent(onFilterLvlChange);
+            isInRange(configs.inRangeConfigs);
             return;
           case 1:
-            effectLevelPin.style.left = configs.maxConfigs.left;
-            effectLevelDepth.style.width = configs.maxConfigs.width;
-            effectLevelValue.value = configs.maxConfigs.value;
-            startCoords = configs.maxConfigs.startCoords;
-            effectLevelValue.dispatchEvent(onFilterLvlChange);
+            isInRange(configs.maxConfigs);
             return;
           case -1:
-            effectLevelPin.style.left = configs.minConfigs.left;
-            effectLevelDepth.style.width = configs.minConfigs.width;
-            effectLevelValue.value = configs.minConfigs.value;
-            startCoords = configs.minConfigs.startCoords;
-            effectLevelValue.dispatchEvent(onFilterLvlChange);
+            isInRange(configs.minConfigs);
             return;
         }
       };

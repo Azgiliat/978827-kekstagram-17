@@ -18,43 +18,17 @@
   };
 
   var removeFilters = function (photo) {
-    if (photo.classList.contains(filters.none)) {
-      photo.classList.remove(filters.none);
-    }
-    if (photo.classList.contains(filters.chrome)) {
-      photo.classList.remove(filters.chrome);
-    }
-    if (photo.classList.contains(filters.sepia)) {
-      photo.classList.remove(filters.sepia);
-    }
-    if (photo.classList.contains(filters.marvin)) {
-      photo.classList.remove(filters.marvin);
-    }
-    if (photo.classList.contains(filters.phobos)) {
-      photo.classList.remove(filters.phobos);
-    }
-    if (photo.classList.contains(filters.heat)) {
-      photo.classList.remove(filters.heat);
+    for (var key in filters) {
+      if (photo.classList.contains(filters[key])) {
+        photo.classList.remove(filters[key]);
+      }
     }
   };
   var addFilter = function (photo, filter) {
-    if (filter.classList.contains(filters.none)) {
-      photo.classList.add(filters.none);
-    }
-    if (filter.classList.contains(filters.chrome)) {
-      photo.classList.add(filters.chrome);
-    }
-    if (filter.classList.contains(filters.sepia)) {
-      photo.classList.add(filters.sepia);
-    }
-    if (filter.classList.contains(filters.marvin)) {
-      photo.classList.add(filters.marvin);
-    }
-    if (filter.classList.contains(filters.phobos)) {
-      photo.classList.add(filters.phobos);
-    }
-    if (filter.classList.contains(filters.heat)) {
-      photo.classList.add(filters.heat);
+    for (var key in filters) {
+      if (filter.classList.contains(filters[key])) {
+        photo.classList.add(filters[key]);
+      }
     }
   };
   var canBeBigger = function (scale) {
