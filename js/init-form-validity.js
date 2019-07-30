@@ -54,11 +54,9 @@
       text: comment.value,
       errorsText: [],
       valid: true,
+      validity: comment.validity,
       commentValidity: function () {
-        if (this.text === '') {
-          return;
-        }
-        if (this.text.length > 140) {
+        if (this.validity.tooLong) {
           this.errorsText.push('Комментарий слишком длинынй, должно быть не более 140 символов.');
           this.valid = false;
         }
