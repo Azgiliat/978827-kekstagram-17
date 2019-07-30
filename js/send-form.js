@@ -1,15 +1,9 @@
+'use strict';
+
 (function () {
   window.sendForm = function () {
     var imgForm = document.querySelector('.img-upload__form');
     var URL = 'https://js.dump.academy/kekstagram';
-
-    var logError = function (message) {
-      console.error(message);
-    };
-    var logSuccess = function (message) {
-      console.log(message);
-    };
-
 
     var formData = new FormData(imgForm);
     var xhr = new XMLHttpRequest();
@@ -25,7 +19,6 @@
       var responseBadChange = new Event('gotBadResponse', gotResponseConfig);
       switch (xhr.status) {
         case 200:
-          logSuccess(xhr.response);
           imgForm.dispatchEvent(responseOkChange);
           break;
         case 400:
@@ -46,10 +39,9 @@
       }
       if (error) {
         imgForm.dispatchEvent(responseBadChange);
-        logError(error);
       }
     });
-    xhr.open("POST", URL);
+    xhr.open('POST', URL);
     xhr.send(formData);
-  }
+  };
 })();

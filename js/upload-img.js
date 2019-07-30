@@ -48,8 +48,6 @@
     var effectLevelValue = imgUpload.querySelector('.effect-level__value');
     var effectLevelPin = imgUpload.querySelector('.effect-level__pin');
     var effectLevelDepth = imgUpload.querySelector('.effect-level__depth');
-    var closeImgPreview = imgUpload.querySelector('.img-upload__cancel');
-    var imgForm = document.querySelector('.img-upload__form');
 
     var filterLevelSet = function () {
       if (imgPreview.classList.contains(filters.none)) {
@@ -98,8 +96,6 @@
       filterLevelSet();
     };
 
-
-
     imgPreview.src = photoURL;
     for (var i = 0; i < effectItems.length; i++) {
       effectItems[i].style.backgroundImage = 'url(' + photoURL + ')';
@@ -123,5 +119,5 @@
     effectLevelValue.addEventListener('filterLvlChange', function () {
       filterLevelSet();
     });
-  }
+  };
 })();
