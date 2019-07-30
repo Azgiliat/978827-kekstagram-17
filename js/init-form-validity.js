@@ -3,9 +3,8 @@
 (function () {
   window.initFormValidity = function () {
     var hashtagInput = document.querySelector('.text__hashtags');
-    var imgForm = document.querySelector('.img-upload__form');
     var comment = document.querySelector('.text__description');
-    //  var submitButton = document.querySelector('.img-upload__submit');
+
     var hashtagsProps = {
       text: hashtagInput.value,
       lowCaseText: [],
@@ -82,30 +81,19 @@
       commentProps.text = comment.value;
       validityToDefault(commentProps);
     });
-    /*  на домашнем ПК почему-то событие submit не отлавливается при повторной попытке
-    отправки формы. Поэтому был придуман такой вот костыль. На рабочем ПК всё отлавилвается.
-    Буду разбираться.
-        submitButton.addEventListener('click', function () {
-          var customSubmitConfig = {
-            bubbles: true,
-            cancelable: true
-          };
-          var cSubmit = new Event('customSubmit', customSubmitConfig);
-          imgForm.dispatchEvent(cSubmit);
-        });
-    */
-    imgForm.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-      hashtagsProps.hashtagsValidity();
-      commentProps.commentValidity();
-      if (commentProps.valid && hashtagsProps.valid) {
-        hashtagInput.setCustomValidity('');
-        comment.setCustomValidity('');
-        imgForm.submit();
-      } else {
-        hashtagInput.setCustomValidity(hashtagsProps.errorsText);
-        comment.setCustomValidity(commentProps.errorsText);
-      }
-    });
+
+    hashtagsProps.hashtagsValidity();
+    commentProps.commentValidity();
+    if (commentProps.valid && hashtagsProps.valid) {
+      hashtagInput.setCustomValidity('');
+      comment.setCustomValidity('');
+      validityToDefault(hashtagsProps);
+      validityToDefault(commentProps);
+      return true;
+    } else {
+      hashtagInput.setCustomValidity(hashtagsProps.errorsText);
+      comment.setCustomValidity(commentProps.errorsText);
+      return false;
+    }
   };
 })();

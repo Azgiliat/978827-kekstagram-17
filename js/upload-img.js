@@ -1,52 +1,44 @@
 'use strict';
 
 (function () {
-  var DEFAULT_SCALE = '100%';
-  var DEFAULT_FILTER_VALUE = '100';
-  var BIGGER = true;
-  var SMALLER = false;
-  var fileImgInput = document.querySelector('.img-upload__form input[type=file]');
-  var imgUpload = document.querySelector('.img-upload__overlay');
-  var imgPreview = imgUpload.querySelector('.img-upload__preview img');
-  var filters = {
-    none: 'effects__preview--none',
-    chrome: 'effects__preview--chrome',
-    sepia: 'effects__preview--sepia',
-    marvin: 'effects__preview--marvin',
-    phobos: 'effects__preview--phobos',
-    heat: 'effects__preview--heat'
-  };
+  window.imgControls = function () {
+    var DEFAULT_SCALE = '100%';
+    var DEFAULT_FILTER_VALUE = '100';
+    var BIGGER = true;
+    var SMALLER = false;
+    var fileImgInput = document.querySelector('.img-upload__form input[type=file]');
+    var imgUpload = document.querySelector('.img-upload__overlay');
+    var imgPreview = imgUpload.querySelector('.img-upload__preview img');
+    var filters = {
+      none: 'effects__preview--none',
+      chrome: 'effects__preview--chrome',
+      sepia: 'effects__preview--sepia',
+      marvin: 'effects__preview--marvin',
+      phobos: 'effects__preview--phobos',
+      heat: 'effects__preview--heat'
+    };
 
-  var removeFilters = function (photo) {
-    for (var key in filters) {
-      if (photo.classList.contains(filters[key])) {
-        photo.classList.remove(filters[key]);
+    window.removeFilters = function (photo) {
+      for (var key in filters) {
+        if (photo.classList.contains(filters[key])) {
+          photo.classList.remove(filters[key]);
+        }
       }
-    }
-  };
-  var addFilter = function (photo, filter) {
-    for (var key in filters) {
-      if (filter.classList.contains(filters[key])) {
-        photo.classList.add(filters[key]);
+    };
+    var addFilter = function (photo, filter) {
+      for (var key in filters) {
+        if (filter.classList.contains(filters[key])) {
+          photo.classList.add(filters[key]);
+        }
       }
-    }
-  };
-  var canBeBigger = function (scale) {
-    return (parseInt(scale, 10) >= 100) ? 0 : 1;
-  };
-  var canBeSmaller = function (scale) {
-    return (parseInt(scale, 10) <= 25) ? 0 : 1;
-  };
+    };
+    var canBeBigger = function (scale) {
+      return (parseInt(scale, 10) >= 100) ? 0 : 1;
+    };
+    var canBeSmaller = function (scale) {
+      return (parseInt(scale, 10) <= 25) ? 0 : 1;
+    };
 
-
-  var valuesToNull = function () {
-    removeFilters(imgPreview);
-    imgPreview.style.filter = null;
-    imgPreview.style.transform = null;
-    fileImgInput.value = null;
-  };
-
-  fileImgInput.addEventListener('change', function () {
     var effectItems = imgUpload.querySelectorAll('.effects__item .effects__preview');
     var photoURL = window.URL.createObjectURL(fileImgInput.files[0]);
     var effectsList = document.querySelector('.effects__list');
@@ -57,6 +49,7 @@
     var effectLevelPin = imgUpload.querySelector('.effect-level__pin');
     var effectLevelDepth = imgUpload.querySelector('.effect-level__depth');
     var closeImgPreview = imgUpload.querySelector('.img-upload__cancel');
+    var imgForm = document.querySelector('.img-upload__form');
 
     var filterLevelSet = function () {
       if (imgPreview.classList.contains(filters.none)) {
@@ -105,8 +98,8 @@
       filterLevelSet();
     };
 
-    imgUpload.classList.remove('hidden');
-    window.initFormValidity();
+
+
     imgPreview.src = photoURL;
     for (var i = 0; i < effectItems.length; i++) {
       effectItems[i].style.backgroundImage = 'url(' + photoURL + ')';
@@ -116,7 +109,7 @@
     effectsList.addEventListener('click', function (evt) {
       evt.preventDefault();
 
-      removeFilters(imgPreview);
+      window.removeFilters(imgPreview);
       addFilter(imgPreview, evt.target);
 
       setDefaultValues();
@@ -130,10 +123,5 @@
     effectLevelValue.addEventListener('filterLvlChange', function () {
       filterLevelSet();
     });
-    closeImgPreview.addEventListener('click', function (evt) {
-      evt.preventDefault();
-      valuesToNull();
-      imgUpload.classList.add('hidden');
-    });
-  });
+  }
 })();
