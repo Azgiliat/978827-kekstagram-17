@@ -70,15 +70,18 @@
       comment.setCustomValidity('');
     };
 
-    hashtagInput.addEventListener('input', function () {
+
+    var onHashtagInput = function () {
       hashtagsProps.text = hashtagInput.value;
       validityToDefault(hashtagsProps);
-    });
-
-    comment.addEventListener('input', function () {
+    };
+    var onCommentInput = function () {
       commentProps.text = comment.value;
       validityToDefault(commentProps);
-    });
+    };
+
+    hashtagInput.addEventListener('input', onHashtagInput);
+    comment.addEventListener('input', onCommentInput);
 
     hashtagsProps.hashtagsValidity();
     commentProps.commentValidity();
@@ -87,10 +90,14 @@
       comment.setCustomValidity('');
       validityToDefault(hashtagsProps);
       validityToDefault(commentProps);
+      hashtagInput.removeEventListener('input', onHashtagInput);
+      comment.removeEventListener('input', onCommentInput);
       return true;
     } else {
       hashtagInput.setCustomValidity(hashtagsProps.errorsText);
       comment.setCustomValidity(commentProps.errorsText);
+      hashtagInput.removeEventListener('input', onHashtagInput);
+      comment.removeEventListener('input', onCommentInput);
       return false;
     }
   };

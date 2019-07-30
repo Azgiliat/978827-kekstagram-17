@@ -7,9 +7,8 @@
 
     var formData = new FormData(imgForm);
     var xhr = new XMLHttpRequest();
-
-
-    xhr.addEventListener('load', function () {
+    var onFormLoad = function () {
+      debugger;
       var error;
       var gotResponseConfig = {
         bubbles: true,
@@ -40,7 +39,10 @@
       if (error) {
         imgForm.dispatchEvent(responseBadChange);
       }
-    });
+      xhr.removeEventListener('load', onFormLoad);
+    };
+
+    xhr.addEventListener('load', onFormLoad);
     xhr.open('POST', URL);
     xhr.send(formData);
   };

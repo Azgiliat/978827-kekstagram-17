@@ -20,6 +20,11 @@
       hashtagInput.value = '';
       comment.value = '';
     };
+    var removeFormListeners = function () {
+      imgForm.removeEventListener('submit', onFormSubmit);
+      imgForm.removeEventListener('gotOkResponse', onFormOk);
+      imgForm.removeEventListener('gotBadResponse', onFormError);
+    };
 
 
     imgUpload.classList.remove('hidden');
@@ -29,29 +34,33 @@
       evt.preventDefault();
       valuesToNull();
       imgUpload.classList.add('hidden');
+      removeFormListeners();
     });
 
-
-    imgForm.addEventListener('submit', function (evt) {
+    var onFormSubmit = function (evt) {
       evt.preventDefault();
       if (window.initFormValidity()) {
         window.sendForm();
       }
-    });
-
-    imgForm.addEventListener('gotOkResponse', function () {
+    };
+    var onFormOk = function () {
       var successElement = successTemplate.cloneNode(true);
       document.querySelector('main').appendChild(successElement);
       valuesToNull();
       imgUpload.classList.add('hidden');
       window.responseButtonsControl();
-    });
-
-    imgForm.addEventListener('gotBadResponse', function () {
+      removeFormListeners();
+    };
+    var onFormError = function () {
       var errorElement = errorTemplate.cloneNode(true);
       document.querySelector('main').appendChild(errorElement);
       imgUpload.classList.add('hidden');
       window.responseButtonsControl();
-    });
+      removeFormListeners();
+    };
+
+    imgForm.addEventListener('submit', onFormSubmit);
+    imgForm.addEventListener('gotOkResponse', onFormOk);
+    imgForm.addEventListener('gotBadResponse', onFormError);
   });
 })();
