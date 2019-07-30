@@ -44,12 +44,14 @@
       document.querySelector('main').appendChild(successElement);
       valuesToNull();
       imgUpload.classList.add('hidden');
+      window.responseButtonsControl();
     });
 
     imgForm.addEventListener('gotBadResponse', function () {
       var errorElement = errorTemplate.cloneNode(true);
       document.querySelector('main').appendChild(errorElement);
       imgUpload.classList.add('hidden');
+      window.responseButtonsControl();
     });
   });
 })();
