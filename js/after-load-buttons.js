@@ -1,6 +1,7 @@
+'use strict';
+
 (function () {
   window.responseButtonsControl = function () {
-    debugger;
     var closePopup = function (popup) {
       document.querySelector('main').removeChild(popup);
     };
@@ -22,5 +23,5 @@
       };
       errorButton.addEventListener('click', onErrorButtonClick);
     }
-  }
+  };
 })();

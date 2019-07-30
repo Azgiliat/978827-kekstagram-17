@@ -8,7 +8,6 @@
     var formData = new FormData(imgForm);
     var xhr = new XMLHttpRequest();
     var onFormLoad = function () {
-      debugger;
       var error;
       var gotResponseConfig = {
         bubbles: true,
