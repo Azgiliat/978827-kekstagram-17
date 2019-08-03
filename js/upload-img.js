@@ -9,6 +9,15 @@
     var fileImgInput = document.querySelector('.img-upload__form input[type=file]');
     var imgUpload = document.querySelector('.img-upload__overlay');
     var imgPreview = imgUpload.querySelector('.img-upload__preview img');
+    var effectItems = imgUpload.querySelectorAll('.effects__item .effects__preview');
+    var photoURL = window.URL.createObjectURL(fileImgInput.files[0]);
+    var effectsList = document.querySelector('.effects__list');
+    var scaleValue = imgUpload.querySelector('.scale__control--value');
+    var scaleControlBig = imgUpload.querySelector('.scale__control--bigger');
+    var scaleControlSmall = imgUpload.querySelector('.scale__control--smaller');
+    var effectLevelValue = imgUpload.querySelector('.effect-level__value');
+    var effectLevelPin = imgUpload.querySelector('.effect-level__pin');
+    var effectLevelDepth = imgUpload.querySelector('.effect-level__depth');
     var filters = {
       none: 'effects__preview--none',
       chrome: 'effects__preview--chrome',
@@ -38,16 +47,6 @@
     var canBeSmaller = function (scale) {
       return (parseInt(scale, 10) <= 25) ? 0 : 1;
     };
-
-    var effectItems = imgUpload.querySelectorAll('.effects__item .effects__preview');
-    var photoURL = window.URL.createObjectURL(fileImgInput.files[0]);
-    var effectsList = document.querySelector('.effects__list');
-    var scaleValue = imgUpload.querySelector('.scale__control--value');
-    var scaleControlBig = imgUpload.querySelector('.scale__control--bigger');
-    var scaleControlSmall = imgUpload.querySelector('.scale__control--smaller');
-    var effectLevelValue = imgUpload.querySelector('.effect-level__value');
-    var effectLevelPin = imgUpload.querySelector('.effect-level__pin');
-    var effectLevelDepth = imgUpload.querySelector('.effect-level__depth');
 
     var filterLevelSet = function () {
       if (imgPreview.classList.contains(filters.none)) {

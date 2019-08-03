@@ -69,6 +69,7 @@ document.querySelector('body').addEventListener('okDonwloadPhotos', function () 
     fragment.appendChild(photoElement);
   });
   sectionPictures.appendChild(fragment);
+  initBigPictures();
 });
 document.querySelector('body').addEventListener('errorDonwloadPhotos', function () {
   for (var j = 0; j < 25; j++) {
@@ -80,4 +81,5 @@ document.querySelector('body').addEventListener('errorDonwloadPhotos', function 
     fragment.appendChild(photoElement);
   }
   sectionPictures.appendChild(fragment);
+  initBigPictures();
 });

@@ -1,10 +1,10 @@
 'use strict';
 
 (function () {
+  window.formValidtity = true;
   window.initFormValidity = function () {
     var hashtagInput = document.querySelector('.text__hashtags');
     var comment = document.querySelector('.text__description');
-
     var hashtagsProps = {
       text: hashtagInput.value,
       lowCaseText: [],
@@ -41,7 +41,7 @@
           }
           var nextItem = i + 1;
           for (nextItem; nextItem < array.length; nextItem++) {
-            if ((item === array[i + 1]) && !doubleTags) {
+            if ((item === array[nextItem]) && !doubleTags) {
               doubleTags = true;
               this.valid = false;
               this.errorsText.push('Не должно быть одинаковых хэштегов\n');
@@ -62,6 +62,16 @@
         }
       }
     };
+    var onHashtagInput = function () {
+      hashtagsProps.text = hashtagInput.value;
+      validityToDefault(hashtagsProps);
+      checkValidity();
+    };
+    var onCommentInput = function () {
+      commentProps.text = comment.value;
+      validityToDefault(commentProps);
+      checkValidity();
+    };
     var validityToDefault = function (item) {
       item.valid = true;
       item.errorsText = [];
@@ -69,36 +79,33 @@
       hashtagInput.setCustomValidity('');
       comment.setCustomValidity('');
     };
-
-
+    var checkValidity = function () {
+      hashtagsProps.hashtagsValidity();
+      commentProps.commentValidity();
+      if (commentProps.valid && hashtagsProps.valid) {
+        hashtagInput.setCustomValidity('');
+        comment.setCustomValidity('');
+        validityToDefault(hashtagsProps);
+        validityToDefault(commentProps);
+        window.formValidtity = true;
+      } else {
+        hashtagInput.setCustomValidity(hashtagsProps.errorsText);
+        comment.setCustomValidity(commentProps.errorsText);
+        window.formValidtity = false;
+      }
+    };
     var onHashtagInput = function () {
       hashtagsProps.text = hashtagInput.value;
       validityToDefault(hashtagsProps);
+      checkValidity();
     };
     var onCommentInput = function () {
       commentProps.text = comment.value;
       validityToDefault(commentProps);
+      checkValidity();
     };
 
     hashtagInput.addEventListener('input', onHashtagInput);
     comment.addEventListener('input', onCommentInput);
-
-    hashtagsProps.hashtagsValidity();
-    commentProps.commentValidity();
-    if (commentProps.valid && hashtagsProps.valid) {
-      hashtagInput.setCustomValidity('');
-      comment.setCustomValidity('');
-      validityToDefault(hashtagsProps);
-      validityToDefault(commentProps);
-      hashtagInput.removeEventListener('input', onHashtagInput);
-      comment.removeEventListener('input', onCommentInput);
-      return true;
-    } else {
-      hashtagInput.setCustomValidity(hashtagsProps.errorsText);
-      comment.setCustomValidity(commentProps.errorsText);
-      hashtagInput.removeEventListener('input', onHashtagInput);
-      comment.removeEventListener('input', onCommentInput);
-      return false;
-    }
   };
 })();

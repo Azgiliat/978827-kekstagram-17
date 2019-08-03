@@ -7,6 +7,8 @@
   var closeImgPreview = imgUpload.querySelector('.img-upload__cancel');
   var imgForm = document.querySelector('.img-upload__form');
 
+  window.initFormValidity();
+
   fileImgInput.addEventListener('change', function () {
     var hashtagInput = document.querySelector('.text__hashtags');
     var comment = document.querySelector('.text__description');
@@ -39,7 +41,8 @@
 
     var onFormSubmit = function (evt) {
       evt.preventDefault();
-      if (window.initFormValidity()) {
+      debugger;
+      if (window.formValidtity) {
         window.sendForm();
       }
     };
@@ -58,7 +61,6 @@
       window.responseButtonsControl();
       removeFormListeners();
     };
-
     imgForm.addEventListener('submit', onFormSubmit);
     imgForm.addEventListener('gotOkResponse', onFormOk);
     imgForm.addEventListener('gotBadResponse', onFormError);
