@@ -94,6 +94,39 @@
       scaleLevelSet(BIGGER, true);
       filterLevelSet();
     };
+    var effectsListChange = function (evt) {
+      evt.preventDefault();
+      window.removeFilters(imgPreview);
+      addFilter(imgPreview, evt.target);
+      setDefaultValues();
+    };
+    window.onFilterLvlChange = function () {
+      filterLevelSet();
+    };
+    window.onScaleLevelSetSmaller = function () {
+      scaleLevelSet(SMALLER, false);
+    };
+    window.onScaleLevelSetSmallerKeydown = function (evt) {
+      if (window.isEnter(evt)) {
+        scaleLevelSet(SMALLER, false);
+      }
+    };
+    window.onScaleLevelSetBigger = function () {
+      scaleLevelSet(BIGGER, false);
+    };
+    window.onScaleLevelSetBiggerKeydown = function (evt) {
+      if (window.isEnter(evt)) {
+        scaleLevelSet(BIGGER, false);
+      }
+    };
+    window.onEffectsListChange = function (evt) {
+      effectsListChange(evt);
+    };
+    window.onEffectsListChangeKeydown = function (evt) {
+      if (window.isEnter(evt)) {
+        effectsListChange(evt);
+      }
+    };
 
     imgPreview.src = photoURL;
     for (var i = 0; i < effectItems.length; i++) {
@@ -101,22 +134,12 @@
     }
     setDefaultValues();
 
-    effectsList.addEventListener('click', function (evt) {
-      evt.preventDefault();
-
-      window.removeFilters(imgPreview);
-      addFilter(imgPreview, evt.target);
-
-      setDefaultValues();
-    }, false);
-    scaleControlBig.addEventListener('click', function () {
-      scaleLevelSet(BIGGER, false);
-    });
-    scaleControlSmall.addEventListener('click', function () {
-      scaleLevelSet(SMALLER, false);
-    });
-    effectLevelValue.addEventListener('filterLvlChange', function () {
-      filterLevelSet();
-    });
+    effectsList.addEventListener('click', window.onEffectsListChange, false);
+    effectsList.addEventListener('keydown', window.onEffectsListChangeKeydown);
+    scaleControlBig.addEventListener('click', window.onScaleLevelSetBigger);
+    scaleControlBig.addEventListener('keydown', window.onScaleLevelSetBiggerKeydown);
+    scaleControlSmall.addEventListener('click', window.onScaleLevelSetSmaller);
+    scaleControlSmall.addEventListener('keydown', window.onScaleLevelSetSmallerKeydown);
+    effectLevelValue.addEventListener('filterLvlChange', window.onFilterLvlChange);
   };
 })();

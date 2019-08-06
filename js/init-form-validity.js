@@ -82,6 +82,11 @@
     var checkValidity = function () {
       hashtagsProps.hashtagsValidity();
       commentProps.commentValidity();
+      if (!hashtagsProps.valid) {
+        hashtagInput.classList.add('input-error');
+      } else {
+        hashtagInput.classList.remove('input-error');
+      }
       if (commentProps.valid && hashtagsProps.valid) {
         hashtagInput.setCustomValidity('');
         comment.setCustomValidity('');
@@ -94,18 +99,19 @@
         window.formValidtity = false;
       }
     };
-    var onHashtagInput = function () {
-      hashtagsProps.text = hashtagInput.value;
-      validityToDefault(hashtagsProps);
-      checkValidity();
-    };
-    var onCommentInput = function () {
-      commentProps.text = comment.value;
-      validityToDefault(commentProps);
-      checkValidity();
-    };
-
     hashtagInput.addEventListener('input', onHashtagInput);
     comment.addEventListener('input', onCommentInput);
+    hashtagInput.addEventListener('focus', function () {
+      window.canClose = false;
+    });
+    comment.addEventListener('focus', function () {
+      window.canClose = false;
+    });
+    hashtagInput.addEventListener('blur', function () {
+      window.canClose = true;
+    });
+    comment.addEventListener('blur', function () {
+      window.canClose = true;
+    });
   };
 })();

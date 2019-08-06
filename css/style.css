@@ -1447,3 +1447,7 @@ main {
     grid-row: 1 / span 3;
   }
 }
+
+.input-error {
+  box-shadow: 0 0 0 4px red;
+}

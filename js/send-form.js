@@ -21,18 +21,14 @@
           break;
         case 400:
           error = 'Неверный запрос';
-          imgForm.dispatchEvent(responseBadChange);
           break;
         case 401:
           error = 'Пользователь не авторизован';
-          imgForm.dispatchEvent(responseBadChange);
           break;
         case 404:
           error = 'Ничего не найдено';
-          imgForm.dispatchEvent(responseBadChange);
           break;
         default:
-          imgForm.dispatchEvent(responseBadChange);
           error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
       }
       if (error) {
