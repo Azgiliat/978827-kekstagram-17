@@ -1,8 +1,8 @@
 'use strict';
 
-(function() {
+(function () {
   window.formValidtity = true;
-  window.initFormValidity = function() {
+  window.initFormValidity = function () {
     var hashtagInput = document.querySelector('.text__hashtags');
     var comment = document.querySelector('.text__description');
     var hashtagsProps = {
@@ -10,14 +10,16 @@
       lowCaseText: [],
       errorsText: [],
       valid: true,
-      toLowCase: function() {
+      toLowCase: function () {
         var hashtags = this.text.split(' ');
-        hashtags.forEach(function(item) {
-          if (item === '') return;
+        hashtags.forEach(function (item) {
+          if (item === '') {
+            return;
+          }
           this.lowCaseText.push(item.toLowerCase());
         }, this);
       },
-      hashtagsValidity: function() {
+      hashtagsValidity: function () {
         var doubleTags = false;
         this.toLowCase();
         if (this.text === '') {
@@ -27,7 +29,7 @@
           this.valid = false;
           this.errorsText.push('Вы ввели ' + this.lowCaseText.length + ' хэштегов. Их должно быть не больше 5.\n');
         }
-        this.lowCaseText.forEach(function(item, i, array) {
+        this.lowCaseText.forEach(function (item, i, array) {
           if (item !== '') {
             if (item === '#') {
               this.valid = false;
@@ -58,31 +60,31 @@
       errorsText: [],
       valid: true,
       validity: comment.validity,
-      commentValidity: function() {
+      commentValidity: function () {
         if (this.validity.tooLong) {
           this.errorsText.push('Комментарий слишком длинынй, должно быть не более 140 символов.');
           this.valid = false;
         }
       }
     };
-    var onHashtagInput = function() {
+    var onHashtagInput = function () {
       hashtagsProps.text = hashtagInput.value;
       validityToDefault(hashtagsProps);
       checkValidity();
     };
-    var onCommentInput = function() {
+    var onCommentInput = function () {
       commentProps.text = comment.value;
       validityToDefault(commentProps);
       checkValidity();
     };
-    var validityToDefault = function(item) {
+    var validityToDefault = function (item) {
       item.valid = true;
       item.errorsText = [];
       hashtagsProps.lowCaseText = [];
       hashtagInput.setCustomValidity('');
       comment.setCustomValidity('');
     };
-    var checkValidity = function() {
+    var checkValidity = function () {
       hashtagsProps.hashtagsValidity();
       commentProps.commentValidity();
       if (!hashtagsProps.valid) {
@@ -104,16 +106,16 @@
     };
     hashtagInput.addEventListener('input', onHashtagInput);
     comment.addEventListener('input', onCommentInput);
-    hashtagInput.addEventListener('focus', function() {
+    hashtagInput.addEventListener('focus', function () {
       window.canClose = false;
     });
-    comment.addEventListener('focus', function() {
+    comment.addEventListener('focus', function () {
       window.canClose = false;
     });
-    hashtagInput.addEventListener('blur', function() {
+    hashtagInput.addEventListener('blur', function () {
       window.canClose = true;
     });
-    comment.addEventListener('blur', function() {
+    comment.addEventListener('blur', function () {
       window.canClose = true;
     });
   };

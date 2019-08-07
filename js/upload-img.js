@@ -1,11 +1,11 @@
 'use strict';
 
-(function() {
+(function () {
   var DEFAULT_SCALE = '100%';
   var DEFAULT_FILTER_VALUE = '100';
   var BIGGER = true;
   var SMALLER = false;
-  window.initImgControls = function() {
+  window.initImgControls = function () {
     var Filters = {
       NONE: 'effects__preview--none',
       CHROME: 'effects__preview--chrome',
@@ -28,28 +28,28 @@
     var effectLevelDepth = imgUpload.querySelector('.effect-level__depth');
     var slider = imgUpload.querySelector('.effect-level');
 
-    window.removeFilters = function(photo) {
+    window.removeFilters = function (photo) {
       for (var key in Filters) {
         if (photo.classList.contains(Filters[key])) {
           photo.classList.remove(Filters[key]);
         }
       }
     };
-    var addFilter = function(photo, filter) {
+    var addFilter = function (photo, filter) {
       for (var key in Filters) {
         if (filter.classList.contains(Filters[key])) {
           photo.classList.add(Filters[key]);
         }
       }
     };
-    var canBeBigger = function(scale) {
+    var canBeBigger = function (scale) {
       return (parseInt(scale, 10) >= 100) ? 0 : 1;
     };
-    var canBeSmaller = function(scale) {
+    var canBeSmaller = function (scale) {
       return (parseInt(scale, 10) <= 25) ? 0 : 1;
     };
 
-    var filterLevelSet = function() {
+    var filterLevelSet = function () {
       if (imgPreview.classList.contains(Filters.NONE)) {
         imgPreview.style.filter = null;
         slider.style.display = 'none';
@@ -75,7 +75,7 @@
         slider.style.display = null;
       }
     };
-    var scaleLevelSet = function(biggerOrSmaller, defaultScale) {
+    var scaleLevelSet = function (biggerOrSmaller, defaultScale) {
       if (
         defaultScale === true) {
         imgPreview.style.transform = 'scale(1)';
@@ -93,7 +93,7 @@
         }
       }
     };
-    var setDefaultValues = function() {
+    var setDefaultValues = function () {
       scaleValue.value = DEFAULT_SCALE;
       effectLevelValue.value = DEFAULT_FILTER_VALUE;
       effectLevelPin.style.left = effectLevelValue.value + '%';
@@ -101,36 +101,36 @@
       scaleLevelSet(BIGGER, true);
       filterLevelSet();
     };
-    var effectsListChange = function(evt) {
+    var effectsListChange = function (evt) {
       if (evt.target.tagName !== 'INPUT') {
         window.removeFilters(imgPreview);
         addFilter(imgPreview, evt.target);
         setDefaultValues();
       }
     };
-    window.onFilterLvlChange = function() {
+    window.onFilterLvlChange = function () {
       filterLevelSet();
     };
-    window.onScaleLevelSetSmaller = function() {
+    window.onScaleLevelSetSmaller = function () {
       scaleLevelSet(SMALLER, false);
     };
-    window.onScaleLevelSetSmallerKeydown = function(evt) {
+    window.onScaleLevelSetSmallerKeydown = function (evt) {
       if (window.isEnter(evt)) {
         scaleLevelSet(SMALLER, false);
       }
     };
-    window.onScaleLevelSetBigger = function() {
+    window.onScaleLevelSetBigger = function () {
       scaleLevelSet(BIGGER, false);
     };
-    window.onScaleLevelSetBiggerKeydown = function(evt) {
+    window.onScaleLevelSetBiggerKeydown = function (evt) {
       if (window.isEnter(evt)) {
         scaleLevelSet(BIGGER, false);
       }
     };
-    window.onEffectsListChange = function(evt) {
+    window.onEffectsListChange = function (evt) {
       effectsListChange(evt);
     };
-    window.onEffectsListChangeKeydown = function(evt) {
+    window.onEffectsListChangeKeydown = function (evt) {
       if (window.isEnter(evt)) {
         effectsListChange(evt);
       }

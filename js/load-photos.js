@@ -1,23 +1,23 @@
 'use strict';
 
-(function() {
+(function () {
   var URL = 'https://js.dump.academy/kekstagram/data';
   var xhr = new XMLHttpRequest();
+  var okDonwloadPhotos = new Event('okDonwloadPhotos', {
+    'bubbles': true,
+    'cancelable': false
+  });
+  var errorDonwloadPhotos = new Event('errorDonwloadPhotos', {
+    'bubbles': true,
+    'cancelable': false
+  });
   window.downloadedPictures = [];
-  var processTimeoutError = function() {
+  var processTimeoutError = function () {
     document.querySelector('body').dispatchEvent(errorDonwloadPhotos);
     xhr.removeEventListener('load', onXhrLoad);
   };
-  var onXhrLoad = function() {
+  var onXhrLoad = function () {
     var error;
-    var okDonwloadPhotos = new Event('okDonwloadPhotos', {
-      'bubbles': true,
-      'cancelable': false
-    });
-    var errorDonwloadPhotos = new Event('errorDonwloadPhotos', {
-      'bubbles': true,
-      'cancelable': false
-    });
     switch (xhr.status) {
       case 200:
         window.downloadedPictures = JSON.parse(xhr.response);
