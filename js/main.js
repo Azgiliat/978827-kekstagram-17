@@ -3,10 +3,10 @@
   window.KeyCodes = {
     ENTER: 13,
     ESC: 27,
-    SPACE: 32
-  };
-  window.isEnter = function (evt) {
-    return (evt.which === window.KeyCodes.ENTER) ? true : false;
+    SPACE: 32,
+    isEnter: function (evt) {
+      return (evt.which === window.KeyCodes.ENTER) ? true : false;
+    }
   };
   var userMaleNames = ['Артём', 'Август', 'Августин', 'Аврор', 'Агап', 'Адам', 'Гений',
     'Геннадий', 'Георгий', 'Герман', 'Владлен', 'Влас', 'Власий', 'Володар', 'Осип', 'Оскар', 'Остап', 'Остромир'

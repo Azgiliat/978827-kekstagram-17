@@ -115,7 +115,7 @@
       scaleLevelSet(SMALLER, false);
     };
     window.onScaleLevelSetSmallerKeydown = function (evt) {
-      if (window.isEnter(evt)) {
+      if (window.KeyCodes.isEnter(evt)) {
         scaleLevelSet(SMALLER, false);
       }
     };
@@ -123,7 +123,7 @@
       scaleLevelSet(BIGGER, false);
     };
     window.onScaleLevelSetBiggerKeydown = function (evt) {
-      if (window.isEnter(evt)) {
+      if (window.KeyCodes.isEnter(evt)) {
         scaleLevelSet(BIGGER, false);
       }
     };
@@ -131,11 +131,11 @@
       effectsListChange(evt);
     };
     window.onEffectsListChangeKeydown = function (evt) {
-      if (window.isEnter(evt)) {
+      if (window.KeyCodes.isEnter(evt)) {
         effectsListChange(evt);
       }
     };
-
+    slider.style.display = 'none';
     imgPreview.src = photoURL;
     for (var i = 0; i < effectItems.length; i++) {
       effectItems[i].style.backgroundImage = 'url(' + photoURL + ')';

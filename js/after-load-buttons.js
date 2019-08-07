@@ -20,7 +20,7 @@
         removeSuccessListeners();
       };
       var onSuccessButtonPress = function (evt) {
-        if (window.isEnter(evt)) {
+        if (window.KeyCodes.isEnter(evt)) {
           closePopup(successSection);
           removeSuccessListeners();
         }
@@ -56,7 +56,7 @@
         removeErrorLiteners();
       };
       var onErrorButtonPress = function (evt) {
-        if (window.isEnter(evt)) {
+        if (window.KeyCodes.isEnter(evt)) {
           closePopup(errorSection);
           removeErrorLiteners();
         }

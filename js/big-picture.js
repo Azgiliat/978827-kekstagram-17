@@ -79,12 +79,12 @@
     };
 
     var onPictureKeydown = function (evt) {
-      if (window.isEnter(evt)) {
+      if (window.KeyCodes.isEnter(evt)) {
         openBigPicture(evt);
       }
     };
     var onCloseBigPictureKeydown = function (evt) {
-      if (window.isEnter(evt)) {
+      if (window.KeyCodes.isEnter(evt)) {
         closeBigPicture();
       }
     };

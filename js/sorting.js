@@ -97,17 +97,17 @@
     };
 
     var onDiscussedBtnKeydown = function (evt) {
-      if (window.isEnter(evt)) {
+      if (window.KeyCodes.isEnter(evt)) {
         showDiscussedPhotos();
       }
     };
     var onNewBtnKeydown = function (evt) {
-      if (window.isEnter(evt)) {
+      if (window.KeyCodes.isEnter(evt)) {
         showNewPhotos();
       }
     };
     var onPopularBtnKeydown = function (evt) {
-      if (window.isEnter(evt)) {
+      if (window.KeyCodes.isEnter(evt)) {
         showPopularPhotos();
       }
     };

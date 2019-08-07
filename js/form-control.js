@@ -8,7 +8,7 @@
   var imgForm = document.querySelector('.img-upload__form');
   window.canClose = true;
 
-  window.initFormValidity();
+  window.initFormValidity.startFormValidity();
 
   fileImgInput.addEventListener('change', function () {
     var hashtagInput = document.querySelector('.text__hashtags');
@@ -49,7 +49,7 @@
       effectsList.removeEventListener('keydown', window.onEffectsListChangeKeydown);
     };
     var oncloseImgPreviewBtnKeydown = function (evt) {
-      if (window.isEnter(evt)) {
+      if (window.KeyCodes.isEnter(evt)) {
         closeImgPreview();
       }
     };
@@ -70,7 +70,7 @@
 
     var onFormSubmit = function (evt) {
       evt.preventDefault();
-      if (window.formValidtity) {
+      if (window.initFormValidity.formValidtity) {
         window.sendForm();
       }
     };
