@@ -25,19 +25,19 @@
     var onMouseMove = function (evt) {
       var effectLevelSet = function (inRange) {
         var configs = {
-          maxConfigs: {
+          max: {
             left: '100%',
             width: '100%',
             value: 100,
             startCoords: coordsLimits.maxX
           },
-          minConfigs: {
+          min: {
             left: '0%',
             width: '0%',
             value: 0,
             startCoords: coordsLimits.minX
           },
-          inRangeConfigs: {
+          inRange: {
             left: effectLevelCalculate(effectLevelPin, effectLevelLine, shift) + '%',
             width: effectLevelCalculate(effectLevelPin, effectLevelLine, shift) + '%',
             value: effectLevelCalculate(effectLevelPin, effectLevelLine, shift),
@@ -55,13 +55,13 @@
 
         switch (inRange) {
           case 0:
-            isInRange(configs.inRangeConfigs);
+            isInRange(configs.inRange);
             return;
           case 1:
-            isInRange(configs.maxConfigs);
+            isInRange(configs.max);
             return;
           case -1:
-            isInRange(configs.minConfigs);
+            isInRange(configs.min);
             return;
         }
       };

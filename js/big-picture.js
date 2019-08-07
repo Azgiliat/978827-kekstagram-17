@@ -79,12 +79,12 @@
     };
 
     var onPictureKeydown = function (evt) {
-      if (evt.which === window.keyCodes.enter) {
+      if (window.isEnter(evt)) {
         openBigPicture(evt);
       }
     };
     var onCloseBigPictureKeydown = function (evt) {
-      if (evt.which === window.keyCodes.enter) {
+      if (window.isEnter(evt)) {
         closeBigPicture();
       }
     };
@@ -96,7 +96,7 @@
     closeBigPictureBtn.addEventListener('click', closeBigPicture);
     closeBigPictureBtn.addEventListener('keydown', onCloseBigPictureKeydown);
     document.addEventListener('keydown', function (evt) {
-      if (evt.which === window.keyCodes.esc && document.querySelector('body').classList.contains('modal-open')) {
+      if (evt.which === window.KeyCodes.ESC && document.querySelector('body').classList.contains('modal-open')) {
         closeBigPicture();
       }
     });

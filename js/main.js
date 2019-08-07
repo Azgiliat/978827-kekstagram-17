@@ -1,12 +1,12 @@
 'use strict';
-(function () {
-  window.keyCodes = {
-    enter: 13,
-    esc: 27,
-    space: 32
+(function() {
+  window.KeyCodes = {
+    ENTER: 13,
+    ESC: 27,
+    SPACE: 32
   };
-  window.isEnter = function (evt) {
-    return (evt.which === window.keyCodes.enter) ? true : false;
+  window.isEnter = function(evt) {
+    return (evt.which === window.KeyCodes.ENTER) ? true : false;
   };
   var userMaleNames = ['Артём', 'Август', 'Августин', 'Аврор', 'Агап', 'Адам', 'Гений',
     'Геннадий', 'Георгий', 'Герман', 'Владлен', 'Влас', 'Власий', 'Володар', 'Осип', 'Оскар', 'Остап', 'Остромир'
@@ -25,19 +25,19 @@
   ];
   var photoTemplate = document.querySelector('#picture').content.querySelector('a');
 
-  var randMinMax = function (min, max) {
+  var randMinMax = function(min, max) {
     return Math.round(min + Math.random() * (max - min));
   };
 
-  var generateUserName = function () {
+  var generateUserName = function() {
     return (Math.random() >= 0.5) ? userMaleNames[randMinMax(0, userMaleNames.length - 1)] : userFemaleNames[randMinMax(0, userFemaleNames.length - 1)];
   };
 
-  var generateCommentText = function () {
+  var generateCommentText = function() {
     return (Math.random() >= 0.5) ? commentsSource[randMinMax(0, commentsSource.length - 1)] : commentsSource[randMinMax(0, commentsSource.length - 1)] + ' ' + commentsSource[randMinMax(0, commentsSource.length - 1)];
   };
 
-  var generateComment = function () {
+  var generateComment = function() {
     var comment = {
       name: generateUserName(),
       text: generateCommentText(),
@@ -46,11 +46,11 @@
     return comment;
   };
 
-  var generatePhotoUrl = function () {
+  var generatePhotoUrl = function() {
     return 'photos/' + (randMinMax(1, 25)) + '.jpg';
   };
 
-  var generateElements = function () {
+  var generateElements = function() {
     var arrayOfElements = [];
     for (var i = 0; i < 25; i++) {
       arrayOfElements[i] = {
@@ -66,9 +66,9 @@
   var sectionPictures = document.querySelector('.pictures');
   var fragment = document.createDocumentFragment();
 
-  document.querySelector('body').addEventListener('okDonwloadPhotos', function () {
+  document.querySelector('body').addEventListener('okDonwloadPhotos', function() {
     var downloadedPhotos = window.downloadedPictures;
-    downloadedPhotos.forEach(function (item, i) {
+    downloadedPhotos.forEach(function(item, i) {
       var photoElement = photoTemplate.cloneNode(true);
       photoElement.querySelector('.picture__img').src = item.url;
       photoElement.querySelector('.picture__comments').textContent = item.comments.length;
@@ -80,7 +80,7 @@
     window.initBigPictures();
     window.initSorting();
   });
-  document.querySelector('body').addEventListener('errorDonwloadPhotos', function () {
+  document.querySelector('body').addEventListener('errorDonwloadPhotos', function() {
     for (var j = 0; j < 25; j++) {
       var photoElement = photoTemplate.cloneNode(true);
       photoElement.querySelector('.picture__img').src = photosArray[j].url;

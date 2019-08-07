@@ -1,11 +1,14 @@
 'use strict';
 
-(function () {
-  var xhr = new XMLHttpRequest();
+(function() {
   var URL = 'https://js.dump.academy/kekstagram/data';
+  var xhr = new XMLHttpRequest();
   window.downloadedPictures = [];
-
-  var onXhrLoad = function () {
+  var processTimeoutError = function() {
+    document.querySelector('body').dispatchEvent(errorDonwloadPhotos);
+    xhr.removeEventListener('load', onXhrLoad);
+  };
+  var onXhrLoad = function() {
     var error;
     var okDonwloadPhotos = new Event('okDonwloadPhotos', {
       'bubbles': true,
@@ -19,6 +22,7 @@
       case 200:
         window.downloadedPictures = JSON.parse(xhr.response);
         document.querySelector('body').dispatchEvent(okDonwloadPhotos);
+        clearTimeout(timeoutId);
         break;
       case 400:
         error = 'Неверный запрос';
@@ -34,10 +38,12 @@
     }
     if (error) {
       document.querySelector('body').dispatchEvent(errorDonwloadPhotos);
+      clearTimeout(timeoutId);
     }
     xhr.removeEventListener('load', onXhrLoad);
   };
   xhr.addEventListener('load', onXhrLoad);
   xhr.open('GET', URL);
   xhr.send();
+  var timeoutId = setTimeout(processTimeoutError, 10000);
 })();

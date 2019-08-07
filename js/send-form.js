@@ -1,10 +1,9 @@
 'use strict';
 
 (function () {
+  var URL = 'https://js.dump.academy/kekstagram';
   window.sendForm = function () {
     var imgForm = document.querySelector('.img-upload__form');
-    var URL = 'https://js.dump.academy/kekstagram';
-
     var formData = new FormData(imgForm);
     var xhr = new XMLHttpRequest();
     var onFormLoad = function () {
